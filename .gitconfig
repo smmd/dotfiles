@@ -1,0 +1,74 @@
+[core]
+repositoryformatversion = 0
+filemode = false
+bare = false
+logallrefupdates = true
+autocrlf = false
+safecrlf = true
+ignorecase = true
+	excludesfile = /Users/sagrario.meneses/.gitignore_global
+
+[user]
+name = Sagrario Meneses
+email = sagrario.meneses@linio.com
+
+[alias]
+st = status -sbv
+cm = !git commit -m
+ck = checkout
+vara = branch -a
+ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
+lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+ld = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
+le = log --oneline --decorate
+dr = "!f() { git diff "$1"^.."$1"; }; f"
+lc = "!f() { git ll "$1"^.."$1"; }; f"
+diffr = "!f() { git diff "$1"^.."$1"; }; f"
+diff = diff --word-diff
+dc = diff --cached
+cp = cherry-pick
+r = reset
+r1 = reset HEAD^
+r2 = reset HEAD^^
+rh = reset --hard
+rh1 = reset HEAD^ --hard
+rh2 = reset HEAD^^ --hard
+rb = svn rebase
+ts = stash
+vommit = !git stash && git svn dcommit
+sl = stash list
+sa = stash apply
+ss = stash save
+ft = !git svn fetch -r
+
+
+[color]
+branch = auto
+diff = auto
+status = auto
+
+[color "branch"]
+current = yellow reverse
+local = yellow
+remote = green
+
+[color "diff"]
+meta = yellow bold
+frag = magenta bold
+old = red
+new = cyan
+
+[push]
+default = simple
+[credential]
+	helper = osxkeychain
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
