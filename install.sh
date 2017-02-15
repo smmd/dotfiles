@@ -5,4 +5,6 @@ mkdir -p $dir
 cd $dir
 git clone git@github.com:smmd/dotfiles.git
 cd dotfiles
-sudo bash symlink-dotfiles.sh
+link ".gitconfig" "$HOME/.gitconfig"
+link ".zshrc" "$HOME/.zshrc"
+link ".oh-my-zsh" "$HOME/.oh-my-zsh"
