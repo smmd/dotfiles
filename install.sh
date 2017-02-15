@@ -7,4 +7,3 @@ git clone git@github.com:smmd/dotfiles.git
 cd dotfiles
 link ".gitconfig" "$HOME/.gitconfig"
 link ".zshrc" "$HOME/.zshrc"
-link ".oh-my-zsh" "$HOME/.oh-my-zsh"
