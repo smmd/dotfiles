@@ -1,0 +1,42 @@
+#!/bin/bash
+# @author zetta
+# @link https://wiki.jira.rocket-internet.de/display/LATAMZ/Multiple+PHP+versions
+# You should follow that guide in order to run this script
+echo "🍺   php switcher  🍺"
+version=$1
+if [[ "70" -ne version && "56" -ne version && "55" -ne version && "54" -ne version && "53" -ne version && "0" -ne version ]]
+then
+    echo "You must specify php version (70,56,55,54,53)"
+    exit 1
+else
+    if [[ "0" -ne version ]]
+    then
+        echo "> Preparing to load php $version"
+    fi
+fi
+function unload_php {
+    echo "> Unloading current php version"
+    brew unlink php70 > /dev/null
+    brew unlink php56 > /dev/null
+    brew unlink php55 > /dev/null
+    brew unlink php54 > /dev/null
+    brew unlink php53 > /dev/null
+    launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.php70.plist 2> /dev/null
+    launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.php56.plist 2> /dev/null
+    launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.php55.plist 2> /dev/null
+    launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.php54.plist 2> /dev/null
+    launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.php53.plist 2> /dev/null
+}
+function load_php {
+    echo "> Loading desired php version"
+    brew link php$1 > /dev/null
+    launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.php$1.plist
+    sed -i '' 's;^PHP_HOME=.*;PHP_HOME='"$(brew --prefix homebrew/php/php$1)/bin"';' ~/.bash_profile
+    source ~/.bash_profile
+    echo "> "`php -v | head -n 1`" Loaded"
+}
+unload_php
+if [[ "0" -ne version ]]
+then
+    load_php $version
+fi
