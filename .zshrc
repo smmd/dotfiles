@@ -1,11 +1,11 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/sagrario.meneses/.oh-my-zsh
+export ZSH=/Users/smmd/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="agnoster"
+ZSH_THEME="agnoster-new-line"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -83,6 +83,17 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+##############################################################################
+# History Configuration
+##############################################################################
+HISTSIZE=5000               #How many lines of history to keep in memory
+HISTFILE=~/.zsh_history     #Where to save history to disk
+SAVEHIST=5000               #Number of history entries to save to disk
+#HISTDUP=erase               #Erase duplicates in the history file
+setopt    appendhistory     #Append history to the history file (no overwriting)
+setopt    sharehistory      #Share history across terminals
+setopt    incappendhistory  #Immediately append to the history file, not just when a term is killed
+
 #PHP  MAC
 alias php-switch='~/.bin/php-switch/php-switch'
 PHP_HOME=""
@@ -100,54 +111,64 @@ alias mysqlStop='sudo /usr/local/Cellar/mysql56/5.6.27/support-files/mysql.serve
 # Funny
 alias fuck='sudo $(history \!\!)'
 alias weee='yes "$(seq 231 -1 16)" | while read i; do printf "\x1b[48;5;${i}m\n"; sleep .02; done'
-alias shop='cd /usr/local/var/www/linio/LATAMZ'
-alias wlabels='cd /usr/local/var/www/linio/GERAMZ'
-alias shop-front='cd /usr/local/var/www/linio/shop-front'
-alias b4a='cd /usr/local/var/www/linio/bob-for-alice'
+
 # alias convertEvidence='ffmpeg -i /home/linio/out.ogv /home/linio/Vídeos/out.mp4'
 
-# SSH Linio connections 
-alias sh3alice01='ssh smeneses@10.178.128.191'
-alias sh3alice02='ssh smeneses@10.178.129.61'
-alias shopLaunch01='ssh smeneses@web01-04.linio-staging.com'
-alias shopLaunch02='ssh smeneses@web02-04.linio-staging.com'
-alias shopLaunchWorker='ssh smeneses@worker04.linio-staging.com'
-alias shopLaunchSolr='ssh smeneses@solr04.linio-staging.com'
-alias shopLaunchRedis='ssh smeneses@redis04.linio-staging.com'
-alias shopLaunchBD='ssh smeneses@db04.linio-staging.com'
+# LINIO #
+alias shop='cd /Users/smmd/Projects/Linio/shop'
+alias shop-up="shop; env APPLICATION_ENV=dev APPLICATION_STORE=mx php -dxdebug.remote_port=9001 -S 127.0.0.1:8003 -t bob/public/"
 
-#SSH WL connections
-alias whiteLabels01='ssh smeneses@172.17.8.67'
-alias whiteLabelsSudo01='ssh deploy@172.17.8.67'
-alias whiteLabels02='ssh smeneses@172.17.8.68'
-alias whiteLabelsSudo02='ssh deploy@172.17.8.68'
-alias whiteLabelsBD01='ssh smeneses@172.17.12.44'
-alias whiteLabelsBD02='ssh smeneses@172.17.12.45'
+alias shop-front='cd /Users/smmd/Projects/Linio/shop-front'
+alias shop-front-up="shop-front; env STORE=mx php -dxdebug.remote_port=9001 -S localhost:8001 -t public/"
+
+alias b4a='cd /Users/smmd/Projects/Linio/bob-for-alice'
+alias b4a-up="b4a; env STORE=mx php -dxdebug.remote_port=9001 -S 0.0.0.0:8002 -t public/"
+
+alias papi='cd /Users/smmd/Projects/Linio/partner-api'
+alias papi-up="papi; env STORE=mx php -dxdebug.remote_port=9001 -S 0.0.0.0:8003 -t public/"
+
+alias srt-api='cd /Users/smmd/Projects/Linio/srt-api'
+alias srt-api-up="srt-api; php -dxdebug.remote_port=9001 -S 0.0.0.0:8004 -t web/"
+
+alias srt-backend='cd /Users/smmd/Projects/Linio/srt-backend'
+alias srt-backend-up="srt-backend; php bin/console server:start 0.0.0.0:8005"
+alias srt-backend-down="srt-backend; php bin/console server:stop"
+
+alias staging-web01='ssh sagrario.meneses@web01.linio-staging.com'
+alias development-web01='ssh sagrario.meneses@web01.linio-development.com'
+alias staging-worker='ssh sagrario.meneses@worker01.linio-staging.com'
+alias development-worker='ssh sagrario.meneses@worker01.linio-development.com'
 
 # Rocket
 function r {
-sudo time php /usr/local/var/www/linio/LATAMZ/bin/rocket.php $@
+sudo time php /Users/smmd/Projects/Linio/shop/bin/rocket.php $@
 }
-source "/usr/local/var/www/linio/LATAMZ/tools/dev/shell-complete/zsh"
+source "/Users/smmd/Projects/Linio/shop/tools/dev/shell-complete/zsh"
 # export PS1='\[\033[01;32m\]\h\[\033[01;34m\] \w\[\033[31m\]$(__git_ps1 "(%s)") \[\033[01;34m\]$\[\033[00m\] '
-alias rWL='sudo php /usr/local/var/www/linio/GERAMZ/bin/rocket.php'
 alias wms='cd /usr/local/var/www/linio/mock-wms && grails -Dserver.port=9090 -Ddisable.auto.recompile=true run-app'
 
 # Alice 2.0
-alias phpu="/usr/local/var/www/linio/shop-front/bin/phpunit --configuration /usr/local/var/www/linio/shop-front/app/phpunit.xml /usr/local/var/www/linio/shop-front/tests" 
-alias phpcs="/usr/local/var/www/linio/shop-front/bin/php-cs-fixer fix"
+alias phpu="/Users/smmd/Projects/Linio/shop-front/bin/phpunit --configuration /Users/smmd/Projects/Linio/shop-front/app/phpunit.xml /Users/smmd/Projects/Linio/shop-front/tests" 
+alias phpcs="/Users/smmd/Projects/Linio/shop-front/bin/php-cs-fixer fix"
 alias precommit="phpu; phpcs;"
 
 # Worker Alice 2.0
 alias clwr="rm -rf lock.mx; rm -rf lock.ec; echo 'Worker Locks removed.'"
-export GOPATH=/Users/sagrario.meneses/go
+export GOPATH=/Users/smmd/go
 export QUEUE_LISTENER_CONFIG_FILE="/Users/sagrario.meneses/go/src/github.com/LinioIT/shop-front-queue-listener/config/parameters.yml"
 alias sfql="$GOPATH/bin/shop-front-queue-listener --config-file=$QUEUE_LISTENER_CONFIG_FILE"
 
+#Caddy
+alias caddy="/Users/smmd/caddy_darwin_amd64/caddy -conf=/Users/smmd/conf/Caddyfile"
+
 # PEAR
-export PATH="/usr/local/mysql/bin:/Users/sagrario.meneses/pear/bin:$PATH"
+export PATH="/usr/local/mysql/bin:/Users/smmd/pear/bin:/Users/smmd/.composer/vendor/bin:$PATH"
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
+
+plugins=(git brew npm history-substring-search)
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
