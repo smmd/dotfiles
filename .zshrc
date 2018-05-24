@@ -134,10 +134,10 @@ alias srt-backend='cd /Users/smmd/Projects/Linio/srt-backend'
 alias srt-backend-up="srt-backend; php bin/console server:start 0.0.0.0:8005"
 alias srt-backend-down="srt-backend; php bin/console server:stop"
 
-alias staging-web01='ssh sagrario.meneses@web01.linio-staging.com'
-alias development-web01='ssh sagrario.meneses@web01.linio-development.com'
-alias staging-worker='ssh sagrario.meneses@worker01.linio-staging.com'
-alias development-worker='ssh sagrario.meneses@worker01.linio-development.com'
+alias staging-web01='ssh -----'
+alias development-web01='ssh ----'
+alias staging-worker='ssh ----'
+alias development-worker='ssh ----'
 
 # Rocket
 function r {
