@@ -7,3 +7,5 @@ git clone git@github.com:smmd/dotfiles.git
 cd dotfiles
 link ".gitconfig" "$HOME/.gitconfig"
 link ".zshrc" "$HOME/.zshrc"
+git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+cp agnoster-new-line.zsh-theme ~/.oh-my-zsh/themes/agnoster-new-line.zsh-theme
